@@ -294,7 +294,7 @@ function publishAndDownload() {
     .then(r => r.text())
     .then(html => {
       const baked = html.replace(
-        '// BAKED_QUESTIONS_PLACEHOLDER',
+        'var questions = [{"id":1788226481171,"text":"How many sensors in Tesla vehicles?"},{"id":1788226494419,"text":"How many sensors in Waymo vehicles?"}];',
         'var questions = ' + JSON.stringify(questions) + ';'
       );
       const a = document.createElement('a');

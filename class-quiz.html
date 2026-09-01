@@ -248,9 +248,10 @@
     <div id="launch-section" style="display:none;">
       <hr class="divider">
       <div class="row">
-        <button class="btn btn-primary" onclick="launchQuiz()">&#x25BA; Generate QR code</button>
+        <button class="btn btn-primary" onclick="publishQuiz()">&#x2B07; Download &amp; publish quiz</button>
         <button class="btn btn-danger" onclick="clearAll()">&#x2715; Clear all</button>
       </div>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">Downloads a new HTML file with your questions baked in. Upload it to GitHub to replace the old one, then generate the QR code.</p>
     </div>
   </div>
 </div>
@@ -368,12 +369,14 @@ function load() {
   try {
     const q = localStorage.getItem(SK_Q);
     const r = localStorage.getItem(SK_R);
-    if (q) questions = JSON.parse(q);
+    // Only load from localStorage if it has content; don't overwrite baked questions
+    if (q) { const parsed = JSON.parse(q); if (parsed.length) questions = parsed; }
     if (r) responses = JSON.parse(r);
   } catch(e) {}
 }
 
 // ── Init ──────────────────────────────────────────────────────────
+// BAKED_QUESTIONS_PLACEHOLDER
 load();
 
 const urlParams = new URLSearchParams(window.location.search);
@@ -426,6 +429,28 @@ function renderQuestions() {
 }
 
 // ── QR code ───────────────────────────────────────────────────────
+function publishQuiz() {
+  if (!questions.length) { showToast('Add questions first'); return; }
+  // Read the current HTML and embed questions as a JS variable
+  fetch(window.location.href)
+    .then(r => r.text())
+    .then(html => {
+      // Replace the load() call startup with pre-baked questions
+      const qJson = JSON.stringify(questions);
+      const injected = html.replace(
+        '// BAKED_QUESTIONS_PLACEHOLDER',
+        'questions = ' + qJson + '; // baked in'
+      );
+      const blob = new Blob([injected], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'class-quiz.html';
+      a.click();
+      showToast('Downloaded! Upload this to GitHub.');
+    })
+    .catch(() => showToast('Could not fetch page. Try the manual method.'));
+}
+
 function launchQuiz() {
   showView('qr');
   const base = window.location.href.split('?')[0];
@@ -597,34 +622,4 @@ function clearResponses() {
   responses = [];
   save();
   renderResults();
-  showToast('Responses cleared');
-}
-
-function exportCSV() {
-  if (!responses.length) return;
-  const headers = ['Student name', 'Date', 'Time', ...questions.map((q, i) => `Q${i+1}: ${q.text}`)];
-  const rows = responses.map(r => [r.name, r.date || '', r.time, ...questions.map(q => r.answers[q.id] || '')]);
-  const csv = [headers, ...rows].map(row => row.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([csv], {type:'text/csv'})), download: 'quiz-results.csv' });
-  a.click();
-  showToast('CSV downloaded');
-}
-
-function clearAll() {
-  if (!confirm('Clear all questions and responses?')) return;
-  questions = []; responses = [];
-  qrGenerated = false;
-  document.getElementById('qr-container').innerHTML = '';
-  save(); renderQuestions();
-  showToast('Quiz cleared');
-}
-
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
-}
-</script>
-</body>
-</html>
+  s

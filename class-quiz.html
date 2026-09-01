@@ -57,117 +57,66 @@
   .view { display: none; }
   .view.active { display: block; }
 
-  .container {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
-  }
+  .container { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
 
   .page-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.75rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    margin-bottom: 1.75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
   }
   .page-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
   .page-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.25rem;
-    margin-bottom: 0.75rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.75rem;
   }
-  .card.accent { background: var(--accent-light); border-color: #c0cef8; }
   .card.success { background: var(--success-light); border-color: #a0d4b8; }
 
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 14px;
-    font-family: inherit;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.12s;
-    white-space: nowrap;
-    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong); background: var(--surface);
+    color: var(--text); font-size: 14px; font-family: inherit;
+    font-weight: 500; cursor: pointer; transition: background 0.12s; white-space: nowrap;
   }
   .btn:hover { background: var(--surface-2); }
   .btn:active { transform: scale(0.98); }
   .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
   .btn-primary:hover { background: #2d5ee0; border-color: #2d5ee0; }
   .btn-danger { background: var(--danger-light); color: var(--danger); border-color: #f0b8b4; }
-  .btn-danger:hover { background: #f8dbd8; }
   .btn-full { width: 100%; justify-content: center; }
   .btn-sm { padding: 5px 10px; font-size: 13px; }
 
-  label {
-    display: block;
-    font-size: 13px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    margin-bottom: 5px;
-  }
+  label { display: block; font-size: 13px; color: var(--text-secondary); font-weight: 500; margin-bottom: 5px; }
   input[type=text], input[type=date], textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-    font-family: inherit;
-    transition: border-color 0.12s, box-shadow 0.12s;
-    -webkit-appearance: none;
-    appearance: none;
+    width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); background: var(--bg); color: var(--text);
+    font-size: 14px; font-family: inherit; -webkit-appearance: none; appearance: none;
   }
-  input[type=text]:focus, input[type=date]:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent);
+  input:focus, textarea:focus {
+    outline: none; border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(59,110,245,0.12);
   }
   textarea { resize: vertical; }
-
   .field { margin-bottom: 0.875rem; }
   .field:last-child { margin-bottom: 0; }
-
   .error-msg { color: var(--danger); font-size: 13px; margin-top: 5px; display: none; }
 
   .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
   .badge-muted { background: var(--surface-2); color: var(--text-secondary); border: 1px solid var(--border); }
-  .badge-accent { background: var(--accent-light); color: var(--accent-text); }
 
   .q-item {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    padding: 1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    margin-bottom: 0.5rem;
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 1rem 1.25rem; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.5rem;
   }
   .q-num {
-    min-width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--accent-light);
-    color: var(--accent-text);
+    min-width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent-light); color: var(--accent-text);
     font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
   }
-  .q-body { flex: 1; min-width: 0; }
-  .q-text { font-size: 14px; font-weight: 500; }
+  .q-text { font-size: 14px; font-weight: 500; flex: 1; min-width: 0; }
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
   .row { display: flex; gap: 8px; align-items: center; }
@@ -177,10 +126,7 @@
   .stat-val { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .respondent {
-    display: flex; align-items: center; gap: 10px;
-    padding: 8px 0; border-bottom: 1px solid var(--border);
-  }
+  .respondent { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
   .respondent:last-child { border-bottom: none; }
   .avatar {
     width: 34px; height: 34px; border-radius: 50%;
@@ -196,8 +142,7 @@
 
   .success-screen { text-align: center; padding: 4rem 1rem; }
   .success-icon {
-    width: 72px; height: 72px; border-radius: 50%;
-    background: var(--success-light);
+    width: 72px; height: 72px; border-radius: 50%; background: var(--success-light);
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 1.25rem; font-size: 36px; color: var(--success);
   }
@@ -206,10 +151,8 @@
     position: fixed; bottom: 1.5rem; left: 50%;
     transform: translateX(-50%) translateY(20px);
     background: var(--text); color: var(--bg);
-    padding: 9px 18px; border-radius: 999px;
-    font-size: 14px; font-weight: 500;
-    opacity: 0; transition: opacity 0.2s, transform 0.2s;
-    pointer-events: none; z-index: 100; white-space: nowrap;
+    padding: 9px 18px; border-radius: 999px; font-size: 14px; font-weight: 500;
+    opacity: 0; transition: opacity 0.2s, transform 0.2s; pointer-events: none; z-index: 100;
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
@@ -228,7 +171,7 @@
     <div class="page-header">
       <div>
         <div class="page-title">Quiz builder</div>
-        <div class="page-subtitle">Add your questions, then share the QR code</div>
+        <div class="page-subtitle">Add questions, then generate the QR code</div>
       </div>
       <span class="badge badge-muted" id="q-count-badge">0 questions</span>
     </div>
@@ -248,10 +191,12 @@
     <div id="launch-section" style="display:none;">
       <hr class="divider">
       <div class="row">
-        <button class="btn btn-primary" onclick="publishQuiz()">&#x2B07; Download &amp; publish quiz</button>
+        <button class="btn btn-primary" onclick="publishAndDownload()">&#x2B07; Download quiz file</button>
         <button class="btn btn-danger" onclick="clearAll()">&#x2715; Clear all</button>
       </div>
-      <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">Downloads a new HTML file with your questions baked in. Upload it to GitHub to replace the old one, then generate the QR code.</p>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">
+        Downloads a new file with your questions baked in. Upload it to GitHub to replace the old one, then open the live URL and click "Generate QR code".
+      </p>
     </div>
   </div>
 </div>
@@ -272,7 +217,7 @@
 
     <div class="card" style="text-align:center; padding:1.75rem 1.25rem;">
       <div id="qr-container" style="margin-bottom:1rem;"></div>
-      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Or share this link directly</p>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Or share this link</p>
       <div class="row">
         <input type="text" id="share-url" readonly style="font-size:12px; flex:1; min-width:0;">
         <button class="btn btn-sm" onclick="copyUrl()">Copy</button>
@@ -297,7 +242,7 @@
   <div class="container">
     <div class="page-header">
       <div>
-        <div class="page-title" id="quiz-title-display">Class quiz</div>
+        <div class="page-title">Class quiz</div>
         <div class="page-subtitle" id="quiz-subtitle-display">Fill in your details and answers</div>
       </div>
     </div>
@@ -317,7 +262,7 @@
 
     <div id="student-questions"></div>
 
-    <button class="btn btn-primary btn-full" onclick="submitAnswers()" style="margin-top:0.25rem;">
+    <button class="btn btn-primary btn-full" id="submit-btn" onclick="submitAnswers()" style="margin-top:0.25rem;">
       Submit answers
     </button>
     <div id="submit-err" class="error-msg" style="text-align:center; margin-top:8px;">Answer all questions before submitting.</div>
@@ -350,34 +295,23 @@
 </div>
 
 <script>
-const SK_Q = 'cq_questions';
-const SK_R = 'cq_responses';
+// ── Baked-in questions (replaced on download) ─────────────────────
+// BAKED_QUESTIONS_PLACEHOLDER
 
-let questions = [];
-let responses = [];
-let refreshTimer = null;
-let qrGenerated = false;
+// ── State ─────────────────────────────────────────────────────────
+if (typeof questions === 'undefined') var questions = [];
+var responses = [];
+var refreshTimer = null;
 
-function save() {
-  try {
-    localStorage.setItem(SK_Q, JSON.stringify(questions));
-    localStorage.setItem(SK_R, JSON.stringify(responses));
-  } catch(e) {}
+function saveResponses() {
+  try { localStorage.setItem('cq_responses', JSON.stringify(responses)); } catch(e) {}
 }
-
-function load() {
-  try {
-    const q = localStorage.getItem(SK_Q);
-    const r = localStorage.getItem(SK_R);
-    // Only load from localStorage if it has content; don't overwrite baked questions
-    if (q) { const parsed = JSON.parse(q); if (parsed.length) questions = parsed; }
-    if (r) responses = JSON.parse(r);
-  } catch(e) {}
+function loadResponses() {
+  try { const r = localStorage.getItem('cq_responses'); if (r) responses = JSON.parse(r); } catch(e) {}
 }
 
 // ── Init ──────────────────────────────────────────────────────────
-// BAKED_QUESTIONS_PLACEHOLDER
-load();
+loadResponses();
 
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('mode') === 'student') {
@@ -385,6 +319,10 @@ if (urlParams.get('mode') === 'student') {
   showView('student');
 } else {
   renderQuestions();
+  // If we have baked questions and are on the live URL, go straight to QR
+  if (questions.length > 0 && window.location.protocol === 'https:') {
+    launchQuiz();
+  }
 }
 
 function showView(name) {
@@ -403,14 +341,12 @@ function addQuestion() {
   errEl.style.display = 'none';
   questions.push({ id: Date.now(), text });
   el.value = '';
-  save();
   renderQuestions();
   showToast('Question added');
 }
 
 function removeQuestion(id) {
   questions = questions.filter(q => q.id !== id);
-  save();
   renderQuestions();
 }
 
@@ -423,38 +359,41 @@ function renderQuestions() {
   list.innerHTML = questions.map((q, i) => `
     <div class="q-item">
       <div class="q-num">${i + 1}</div>
-      <div class="q-body"><div class="q-text">${escHtml(q.text)}</div></div>
+      <div class="q-text">${escHtml(q.text)}</div>
       <button class="btn btn-danger btn-sm" onclick="removeQuestion(${q.id})">&#x2715;</button>
     </div>`).join('');
 }
 
-// ── QR code ───────────────────────────────────────────────────────
-function publishQuiz() {
+function publishAndDownload() {
   if (!questions.length) { showToast('Add questions first'); return; }
-  // Read the current HTML and embed questions as a JS variable
-  fetch(window.location.href)
+  fetch(window.location.href.split('?')[0])
     .then(r => r.text())
     .then(html => {
-      // Replace the load() call startup with pre-baked questions
       const qJson = JSON.stringify(questions);
-      const injected = html.replace(
+      const baked = html.replace(
         '// BAKED_QUESTIONS_PLACEHOLDER',
-        'questions = ' + qJson + '; // baked in'
+        'var questions = ' + qJson + ';'
       );
-      const blob = new Blob([injected], { type: 'text/html' });
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
+      a.href = URL.createObjectURL(new Blob([baked], { type: 'text/html' }));
       a.download = 'class-quiz.html';
       a.click();
-      showToast('Downloaded! Upload this to GitHub.');
+      showToast('Downloaded! Now upload to GitHub.');
     })
-    .catch(() => showToast('Could not fetch page. Try the manual method.'));
+    .catch(() => showToast('Error. Make sure you\'re on the GitHub Pages URL.'));
 }
 
+function clearAll() {
+  if (!confirm('Clear all questions?')) return;
+  questions = [];
+  renderQuestions();
+  showToast('Cleared');
+}
+
+// ── QR ────────────────────────────────────────────────────────────
 function launchQuiz() {
   showView('qr');
-  const base = window.location.href.split('?')[0];
-  const studentUrl = base + '?mode=student';
+  const studentUrl = window.location.href.split('?')[0] + '?mode=student';
   document.getElementById('share-url').value = studentUrl;
   document.getElementById('qr-container').innerHTML = '';
   new QRCode(document.getElementById('qr-container'), {
@@ -468,7 +407,7 @@ function launchQuiz() {
 }
 
 function updateResponseCount() {
-  load();
+  loadResponses();
   document.getElementById('response-count').textContent = responses.length;
 }
 
@@ -487,20 +426,16 @@ function initStudentView() {
 
   const container = document.getElementById('student-questions');
   if (!questions.length) {
-    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No questions yet. Ask your teacher to add some first.</div>';
+    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No questions yet. Ask your teacher to add some.</div>';
     return;
   }
   container.innerHTML = questions.map((q, i) => `
     <div class="card">
-      <label style="font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px;">
-        ${i + 1}. ${escHtml(q.text)}
-      </label>
+      <label style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:8px;">${i + 1}. ${escHtml(q.text)}</label>
       <textarea id="ans-${q.id}" rows="2" placeholder="Your answer…"></textarea>
       <div id="ans-err-${q.id}" class="error-msg">Write your answer before submitting.</div>
     </div>`).join('');
 }
-
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwiEKYNsIRCgxRRGguuaFMhyibZspwjTqeETZjDGW9YmYWr_PTw8NofXVeZ1iDdj00-/exec';
 
 function submitAnswers() {
   const name = document.getElementById('student-name').value.trim();
@@ -525,44 +460,21 @@ function submitAnswers() {
   document.getElementById('submit-err').style.display = valid ? 'none' : 'block';
   if (!valid) return;
 
-  const submitBtn = document.querySelector('#view-student .btn-primary');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Submitting…';
-
-  const headers = ['Student Name', 'Date', 'Time', ...questions.map((q, i) => 'Q' + (i+1) + ': ' + q.text)];
-  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  const row = [name, date, time, ...questions.map(q => answers[q.id] || '')];
-
-  fetch(SHEETS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ headers, row })
-  })
-  .then(() => {
-    load();
-    responses.push({ name, date, answers, time });
-    save();
-    showView('submitted');
-  })
-  .catch(() => {
-    // Still save locally even if network fails
-    load();
-    responses.push({ name, date, answers, time });
-    save();
-    showView('submitted');
-  });
+  loadResponses();
+  responses.push({ name, date, answers, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+  saveResponses();
+  showView('submitted');
 }
 
 // ── Results ───────────────────────────────────────────────────────
 function renderResults() {
-  load();
+  loadResponses();
   const container = document.getElementById('results-content');
   document.getElementById('results-subtitle').textContent =
     responses.length + ' response' + (responses.length !== 1 ? 's' : '') + ' received';
 
   if (!responses.length) {
-    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No responses yet. Share the QR code with students.</div>';
+    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No responses yet.</div>';
     return;
   }
 
@@ -572,13 +484,13 @@ function renderResults() {
   </div>`;
 
   const respondentsHtml = `<div class="card" style="margin-bottom:0.75rem;">
-    <p style="font-size:13px; font-weight:600; color:var(--text-secondary); margin-bottom:0.75rem;">Respondents</p>
+    <p style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:0.75rem;">Respondents</p>
     ${responses.map(r => `
       <div class="respondent">
         <div class="avatar">${r.name.slice(0,2).toUpperCase()}</div>
         <div>
-          <div style="font-size:14px; font-weight:500;">${escHtml(r.name)}</div>
-          <div style="font-size:12px; color:var(--text-muted);">${r.date || ''} &middot; ${r.time}</div>
+          <div style="font-size:14px;font-weight:500;">${escHtml(r.name)}</div>
+          <div style="font-size:12px;color:var(--text-muted);">${r.date || ''} &middot; ${r.time}</div>
         </div>
       </div>`).join('')}
   </div>`;
@@ -592,7 +504,6 @@ function renderResults() {
       freq[key].count++;
     });
     const sorted = Object.values(freq).sort((a, b) => b.count - a.count);
-
     return `<div class="card">
       <p style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Question ${i + 1}</p>
       <p style="font-size:15px;font-weight:600;margin-bottom:1rem;">${escHtml(q.text)}</p>
@@ -620,6 +531,32 @@ function renderResults() {
 function clearResponses() {
   if (!confirm('Clear all responses? This cannot be undone.')) return;
   responses = [];
-  save();
+  saveResponses();
   renderResults();
-  s
+  showToast('Responses cleared');
+}
+
+function exportCSV() {
+  if (!responses.length) return;
+  const headers = ['Student name', 'Date', 'Time', ...questions.map((q, i) => `Q${i+1}: ${q.text}`)];
+  const rows = responses.map(r => [r.name, r.date || '', r.time, ...questions.map(q => r.answers[q.id] || '')]);
+  const csv = [headers, ...rows].map(row => row.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })),
+    download: 'quiz-results.csv'
+  });
+  a.click();
+  showToast('CSV downloaded');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+</script>
+</body>
+</html>

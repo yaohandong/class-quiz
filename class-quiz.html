@@ -47,17 +47,13 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    font-size: 15px;
-    line-height: 1.5;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; font-size: 15px; line-height: 1.5;
   }
 
   .view { display: none; }
   .view.active { display: block; }
-
-  .container { max-width: 640px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  .container { max-width: 600px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
 
   .page-header {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
@@ -66,11 +62,7 @@
   .page-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
   .page-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
 
-  .card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.75rem;
-  }
-  .card.success { background: var(--success-light); border-color: #a0d4b8; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0.75rem; }
 
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
@@ -83,6 +75,7 @@
   .btn:active { transform: scale(0.98); }
   .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
   .btn-primary:hover { background: #2d5ee0; border-color: #2d5ee0; }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
   .btn-danger { background: var(--danger-light); color: var(--danger); border-color: #f0b8b4; }
   .btn-full { width: 100%; justify-content: center; }
   .btn-sm { padding: 5px 10px; font-size: 13px; }
@@ -106,37 +99,20 @@
   .badge-muted { background: var(--surface-2); color: var(--text-secondary); border: 1px solid var(--border); }
 
   .q-item {
-    display: flex; gap: 12px; align-items: flex-start;
-    padding: 1rem 1.25rem; background: var(--surface);
+    display: flex; gap: 12px; align-items: center;
+    padding: 0.875rem 1.25rem; background: var(--surface);
     border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.5rem;
   }
   .q-num {
     min-width: 26px; height: 26px; border-radius: 50%;
     background: var(--accent-light); color: var(--accent-text);
     font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .q-text { font-size: 14px; font-weight: 500; flex: 1; min-width: 0; }
 
   .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
   .row { display: flex; gap: 8px; align-items: center; }
-
-  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 0.75rem; }
-  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; }
-  .stat-val { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
-  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
-
-  .respondent { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
-  .respondent:last-child { border-bottom: none; }
-  .avatar {
-    width: 34px; height: 34px; border-radius: 50%;
-    background: var(--accent-light); color: var(--accent-text);
-    font-size: 13px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-
-  .prog-track { height: 7px; background: var(--surface-2); border-radius: 4px; overflow: hidden; margin-top: 4px; }
-  .prog-bar { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.4s ease; }
 
   #qr-container { display: inline-block; padding: 14px; background: #fff; border-radius: 10px; }
 
@@ -156,10 +132,7 @@
   }
   #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  @media (max-width: 480px) {
-    .stat-grid { grid-template-columns: 1fr; }
-    .page-header { flex-direction: column; }
-  }
+  @media (max-width: 480px) { .page-header { flex-direction: column; } }
 </style>
 </head>
 <body>
@@ -171,7 +144,7 @@
     <div class="page-header">
       <div>
         <div class="page-title">Quiz builder</div>
-        <div class="page-subtitle">Add questions, then generate the QR code</div>
+        <div class="page-subtitle">Add questions, download the file, upload to GitHub</div>
       </div>
       <span class="badge badge-muted" id="q-count-badge">0 questions</span>
     </div>
@@ -183,19 +156,15 @@
         <div id="q-text-err" class="error-msg">Write a question before adding.</div>
       </div>
     </div>
-
     <button class="btn btn-primary" onclick="addQuestion()">+ Add question</button>
 
     <div id="questions-list" style="margin-top:1rem;"></div>
 
     <div id="launch-section" style="display:none;">
       <hr class="divider">
-      <div class="row">
-        <button class="btn btn-primary" onclick="publishAndDownload()">&#x2B07; Download quiz file</button>
-        <button class="btn btn-danger" onclick="clearAll()">&#x2715; Clear all</button>
-      </div>
+      <button class="btn btn-primary" onclick="publishAndDownload()">&#x2B07; Download quiz file</button>
       <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">
-        Downloads a new file with your questions baked in. Upload it to GitHub to replace the old one, then open the live URL and click "Generate QR code".
+        Upload this file to GitHub to replace the old one. Students scan the QR code on the live page and their answers go straight to your Google Sheet.
       </p>
     </div>
   </div>
@@ -206,34 +175,19 @@
   <div class="container">
     <div class="page-header">
       <div>
-        <div class="page-title">Share with students</div>
-        <div class="page-subtitle">Students scan to open the quiz form</div>
+        <div class="page-title">Ready for class</div>
+        <div class="page-subtitle" id="qr-subtitle">Students scan to answer</div>
       </div>
-      <div class="row">
-        <button class="btn btn-sm" onclick="showView('teacher')">&#8592; Edit</button>
-        <button class="btn btn-sm btn-primary" onclick="showView('results')">Results &#8594;</button>
-      </div>
+      <button class="btn btn-sm" onclick="showView('teacher')">&#8592; Edit</button>
     </div>
 
-    <div class="card" style="text-align:center; padding:1.75rem 1.25rem;">
-      <div id="qr-container" style="margin-bottom:1rem;"></div>
-      <p style="font-size:13px; color:var(--text-muted); margin-bottom:8px;">Or share this link</p>
-      <div class="row">
-        <input type="text" id="share-url" readonly style="font-size:12px; flex:1; min-width:0;">
+    <div class="card" style="text-align:center; padding:2rem 1.25rem;">
+      <div id="qr-container" style="margin-bottom:1.25rem;"></div>
+      <div class="row" style="justify-content:center;">
+        <input type="text" id="share-url" readonly style="font-size:12px; max-width:340px;">
         <button class="btn btn-sm" onclick="copyUrl()">Copy</button>
       </div>
     </div>
-
-    <div class="card success">
-      <div style="display:flex; align-items:center; justify-content:space-between;">
-        <div>
-          <div style="font-size:26px; font-weight:700; color:var(--success);" id="response-count">0</div>
-          <div style="font-size:13px; color:var(--success);">responses received</div>
-        </div>
-        <button class="btn btn-sm" onclick="updateResponseCount()">&#x21bb; Refresh</button>
-      </div>
-    </div>
-    <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:0.5rem;">Auto-refreshes every 10 seconds</p>
   </div>
 </div>
 
@@ -243,7 +197,7 @@
     <div class="page-header">
       <div>
         <div class="page-title">Class quiz</div>
-        <div class="page-subtitle" id="quiz-subtitle-display">Fill in your details and answers</div>
+        <div class="page-subtitle" id="quiz-subtitle-display"></div>
       </div>
     </div>
 
@@ -262,7 +216,7 @@
 
     <div id="student-questions"></div>
 
-    <button class="btn btn-primary btn-full" id="submit-btn" onclick="submitAnswers()" style="margin-top:0.25rem;">
+    <button class="btn btn-primary btn-full" id="submit-btn" onclick="submitAnswers()">
       Submit answers
     </button>
     <div id="submit-err" class="error-msg" style="text-align:center; margin-top:8px;">Answer all questions before submitting.</div>
@@ -275,60 +229,30 @@
     <div class="success-screen">
       <div class="success-icon">&#10003;</div>
       <h1 style="font-size:22px; font-weight:700; margin-bottom:8px;">Answers submitted!</h1>
-      <p style="color:var(--text-secondary); max-width:300px; margin:0 auto;">Your teacher will review the results. You can close this page.</p>
+      <p style="color:var(--text-secondary); max-width:300px; margin:0 auto;">Your answers have been recorded. You can close this page.</p>
     </div>
-  </div>
-</div>
-
-<!-- ===== RESULTS VIEW ===== -->
-<div id="view-results" class="view">
-  <div class="container">
-    <div class="page-header">
-      <div>
-        <div class="page-title">Results</div>
-        <div class="page-subtitle" id="results-subtitle"></div>
-      </div>
-      <button class="btn btn-sm" onclick="showView('qr')">&#8592; Back</button>
-    </div>
-    <div id="results-content"></div>
   </div>
 </div>
 
 <script>
-// ── Baked-in questions (replaced on download) ─────────────────────
-var questions = [{"id":1788225033989,"text":"1"}];
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwiEKYNsIRCgxRRGguuaFMhyibZspwjTqeETZjDGW9YmYWr_PTw8NofXVeZ1iDdj00-/exec';
 
-// ── State ─────────────────────────────────────────────────────────
+// BAKED_QUESTIONS_PLACEHOLDER
 if (typeof questions === 'undefined') var questions = [];
-var responses = [];
-var refreshTimer = null;
-
-function saveResponses() {
-  try { localStorage.setItem('cq_responses', JSON.stringify(responses)); } catch(e) {}
-}
-function loadResponses() {
-  try { const r = localStorage.getItem('cq_responses'); if (r) responses = JSON.parse(r); } catch(e) {}
-}
 
 // ── Init ──────────────────────────────────────────────────────────
-loadResponses();
-
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('mode') === 'student') {
+const isStudent = new URLSearchParams(window.location.search).get('mode') === 'student';
+if (isStudent) {
   initStudentView();
   showView('student');
 } else {
   renderQuestions();
-  // If we have baked questions and are on the live URL, go straight to QR
-  if (questions.length > 0 && window.location.protocol === 'https:') {
-    launchQuiz();
-  }
+  if (questions.length > 0) launchQuiz();
 }
 
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + name).classList.add('active');
-  if (name === 'results') renderResults();
   window.scrollTo(0, 0);
 }
 
@@ -369,46 +293,32 @@ function publishAndDownload() {
   fetch(window.location.href.split('?')[0])
     .then(r => r.text())
     .then(html => {
-      const qJson = JSON.stringify(questions);
       const baked = html.replace(
         '// BAKED_QUESTIONS_PLACEHOLDER',
-        'var questions = ' + qJson + ';'
+        'var questions = ' + JSON.stringify(questions) + ';'
       );
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([baked], { type: 'text/html' }));
       a.download = 'class-quiz.html';
       a.click();
-      showToast('Downloaded! Now upload to GitHub.');
+      showToast('Downloaded! Upload to GitHub.');
     })
-    .catch(() => showToast('Error. Make sure you\'re on the GitHub Pages URL.'));
-}
-
-function clearAll() {
-  if (!confirm('Clear all questions?')) return;
-  questions = [];
-  renderQuestions();
-  showToast('Cleared');
+    .catch(() => showToast('Open the GitHub Pages URL first, then download.'));
 }
 
 // ── QR ────────────────────────────────────────────────────────────
 function launchQuiz() {
-  showView('qr');
   const studentUrl = window.location.href.split('?')[0] + '?mode=student';
   document.getElementById('share-url').value = studentUrl;
+  document.getElementById('qr-subtitle').textContent =
+    questions.length + ' question' + (questions.length !== 1 ? 's' : '') + ' · students scan to answer';
   document.getElementById('qr-container').innerHTML = '';
   new QRCode(document.getElementById('qr-container'), {
-    text: studentUrl, width: 220, height: 220,
+    text: studentUrl, width: 240, height: 240,
     colorDark: '#000000', colorLight: '#ffffff',
     correctLevel: QRCode.CorrectLevel.M
   });
-  updateResponseCount();
-  clearInterval(refreshTimer);
-  refreshTimer = setInterval(updateResponseCount, 10000);
-}
-
-function updateResponseCount() {
-  loadResponses();
-  document.getElementById('response-count').textContent = responses.length;
+  showView('qr');
 }
 
 function copyUrl() {
@@ -426,7 +336,7 @@ function initStudentView() {
 
   const container = document.getElementById('student-questions');
   if (!questions.length) {
-    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No questions yet. Ask your teacher to add some.</div>';
+    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No questions yet. Ask your teacher to set up the quiz first.</div>';
     return;
   }
   container.innerHTML = questions.map((q, i) => `
@@ -460,93 +370,20 @@ function submitAnswers() {
   document.getElementById('submit-err').style.display = valid ? 'none' : 'block';
   if (!valid) return;
 
-  loadResponses();
-  responses.push({ name, date, answers, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
-  saveResponses();
-  showView('submitted');
-}
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
 
-// ── Results ───────────────────────────────────────────────────────
-function renderResults() {
-  loadResponses();
-  const container = document.getElementById('results-content');
-  document.getElementById('results-subtitle').textContent =
-    responses.length + ' response' + (responses.length !== 1 ? 's' : '') + ' received';
+  const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const headers = ['Student Name', 'Date', 'Time', ...questions.map((q, i) => 'Q' + (i + 1) + ': ' + q.text)];
+  const row = [name, date, time, ...questions.map(q => answers[q.id] || '')];
 
-  if (!responses.length) {
-    container.innerHTML = '<div class="card" style="text-align:center;padding:2rem;color:var(--text-muted);">No responses yet.</div>';
-    return;
-  }
-
-  const statsHtml = `<div class="stat-grid">
-    <div class="stat-card"><div class="stat-val">${responses.length}</div><div class="stat-label">Responses</div></div>
-    <div class="stat-card"><div class="stat-val">${questions.length}</div><div class="stat-label">Questions</div></div>
-  </div>`;
-
-  const respondentsHtml = `<div class="card" style="margin-bottom:0.75rem;">
-    <p style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:0.75rem;">Respondents</p>
-    ${responses.map(r => `
-      <div class="respondent">
-        <div class="avatar">${r.name.slice(0,2).toUpperCase()}</div>
-        <div>
-          <div style="font-size:14px;font-weight:500;">${escHtml(r.name)}</div>
-          <div style="font-size:12px;color:var(--text-muted);">${r.date || ''} &middot; ${r.time}</div>
-        </div>
-      </div>`).join('')}
-  </div>`;
-
-  const questionsHtml = questions.map((q, i) => {
-    const qAnswers = responses.map(r => (r.answers[q.id] || '').trim()).filter(Boolean);
-    const freq = {};
-    qAnswers.forEach(a => {
-      const key = a.toLowerCase();
-      if (!freq[key]) freq[key] = { text: a, count: 0 };
-      freq[key].count++;
-    });
-    const sorted = Object.values(freq).sort((a, b) => b.count - a.count);
-    return `<div class="card">
-      <p style="font-size:12px;color:var(--text-muted);margin-bottom:4px;">Question ${i + 1}</p>
-      <p style="font-size:15px;font-weight:600;margin-bottom:1rem;">${escHtml(q.text)}</p>
-      ${sorted.map(({ text, count }) => {
-        const pct = Math.round(count / responses.length * 100);
-        return `<div style="margin-bottom:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;">
-            <span style="font-size:14px;font-weight:500;">${escHtml(text)}</span>
-            <span style="font-size:12px;color:var(--text-muted);">${count} &middot; ${pct}%</span>
-          </div>
-          <div class="prog-track"><div class="prog-bar" style="width:${pct}%;"></div></div>
-        </div>`;
-      }).join('') || '<p style="font-size:13px;color:var(--text-muted);">No answers yet.</p>'}
-    </div>`;
-  }).join('');
-
-  const actionsHtml = `<div style="display:flex;gap:8px;margin-top:0.5rem;">
-    <button class="btn btn-full" onclick="exportCSV()">&#8595; Export CSV</button>
-    <button class="btn btn-danger btn-full" onclick="clearResponses()">&#x2715; Clear responses</button>
-  </div>`;
-
-  container.innerHTML = statsHtml + respondentsHtml + questionsHtml + actionsHtml;
-}
-
-function clearResponses() {
-  if (!confirm('Clear all responses? This cannot be undone.')) return;
-  responses = [];
-  saveResponses();
-  renderResults();
-  showToast('Responses cleared');
-}
-
-function exportCSV() {
-  if (!responses.length) return;
-  const headers = ['Student name', 'Date', 'Time', ...questions.map((q, i) => `Q${i+1}: ${q.text}`)];
-  const rows = responses.map(r => [r.name, r.date || '', r.time, ...questions.map(q => r.answers[q.id] || '')]);
-  const csv = [headers, ...rows].map(row => row.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(new Blob([csv], { type: 'text/csv' })),
-    download: 'quiz-results.csv'
-  });
-  a.click();
-  showToast('CSV downloaded');
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ headers, row })
+  }).finally(() => showView('submitted'));
 }
 
 function escHtml(s) {
@@ -555,7 +392,7 @@ function escHtml(s) {
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2200);
+  setTimeout(() => t.classList.remove('show'), 2500);
 }
 </script>
 </body>

@@ -294,7 +294,7 @@ function publishAndDownload() {
     .then(r => r.text())
     .then(html => {
       const baked = html.replace(
-        'var questions = [{"id":1788226934864,"text":"How many sensors are in a Tesla vehicle?"},{"id":1788226947399,"text":"How many sensors are in a Waymo vehicle?"}];',
+        'var questions = [{"id":1789311251627,"text":"How many conflict points at a two-lane three-legged intersection?"}];',
         'var questions = ' + JSON.stringify(questions) + ';'
       );
       const a = document.createElement('a');

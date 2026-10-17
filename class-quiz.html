@@ -237,7 +237,7 @@
 <script>
 const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwiEKYNsIRCgxRRGguuaFMhyibZspwjTqeETZjDGW9YmYWr_PTw8NofXVeZ1iDdj00-/exec';
 
-var questions = [{"id":1788226182998,"text":"How many conflict points at this intersection?"}];
+var questions = [{"id":1788226182998,"text":"Which sensor technology do you think will dominate future autonomous vehicles?"}];
 if (typeof questions === 'undefined') var questions = [];
 
 // ── Init ──────────────────────────────────────────────────────────
@@ -294,7 +294,7 @@ function publishAndDownload() {
     .then(r => r.text())
     .then(html => {
       const baked = html.replace(
-        'var questions = [{"id":1789311251627,"text":"How many conflict points at this intersection?"}];',
+        'var questions = [{"id":1789311251627,"text":"Which sensor technology do you think will dominate future autonomous vehicles?"}];',
         'var questions = ' + JSON.stringify(questions) + ';'
       );
       const a = document.createElement('a');
